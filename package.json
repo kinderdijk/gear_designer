@@ -1,0 +1,25 @@
+{
+  "name": "gear_designer",
+  "version": "0.0.0",
+  "description": "",
+  "main": "gear.js",
+  "scripts": {
+    "start": "node buildSources/srcServer.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kinderdijk/gear_designer.git"
+  },
+  "author": "Jon Pendlebury",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kinderdijk/gear_designer/issues"
+  },
+  "homepage": "https://github.com/kinderdijk/gear_designer#readme",
+  "dependencies": {
+    "bezier-js": "^2.2.3",
+    "express": "^4.15.3",
+    "open": "0.0.5",
+    "path": "^0.12.7"
+  }
+}
