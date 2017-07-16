@@ -1,23 +1,17 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <script src="./bundle.js"></script>
+    </head>
 <body>
 
 <h1>My First Heading</h1>
 <p>My first paragraph.</p>
-    
+
 <canvas id="myCanvas"></canvas>
 
 <script>
-    var cvs = document.getElementById("myCanvas");
-    cvs.width = 300;
-    cvs.height = 300;
-    var ctx = cvs.getContext("2d");
-
-
-    ctx.beginPath();
-    ctx.moveTo(100, 100);
-    ctx.lineTo(120, 170);
-    ctx.stroke();
+    drawLine();
 </script>
 </body>
 </html>
