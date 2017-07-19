@@ -1495,6 +1495,8 @@ function drawLine() {
     ctx.stroke();
 }
 
+module.exports.drawLine = drawLine;
+
 /***/ }),
 /* 3 */
 /***/ (function(module, exports, __webpack_require__) {

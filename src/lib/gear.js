@@ -10,3 +10,5 @@ function drawLine() {
     ctx.lineTo(120, 170);
     ctx.stroke();
 }
+
+module.exports.drawLine = drawLine;

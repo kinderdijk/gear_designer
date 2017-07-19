@@ -1,17 +1,25 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <script src="./bundle.js"></script>
+        <script src="bundle.js"></script>
+        <link href="bootstrap.css" rel="stylesheet"/>
+        <link href="custom.css" rel="stylesheet"/>
     </head>
-<body>
 
-<h1>My First Heading</h1>
-<p>My first paragraph.</p>
+    <body>
+        <div class="col-md-3 left_col">
+            <div class="navbar nav_title" style="border: 0px;">
+                <a href="indes.html" class="site_title">My Meanderings</a>
+            </div>
+        </div>
 
-<canvas id="myCanvas"></canvas>
-
-<script>
-    drawLine();
-</script>
-</body>
+        <div class="right_col" role="main">
+            <div class="page-title">
+                <div class="title_left">
+                    This is the page title.
+                </div>
+            </div>
+        </div>
+        <canvas id="myCanvas"></canvas>
+    </body>
 </html>

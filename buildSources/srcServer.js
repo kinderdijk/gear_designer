@@ -5,6 +5,7 @@ const app = express();
 const port = 3000;
 
 app.use(express.static('dist/lib'));
+app.use(express.static('bootstrap/css'));
 
 app.get("/", function(req, res) {
     res.sendFile(path.join(__dirname, "../src/index.html"));
