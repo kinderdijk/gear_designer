@@ -1,14 +1,19 @@
 var path = require('path');
 
-module.exports = {
-    entry: path.resolve(__dirname, 'src/lib/gear.js'),
+var BUILD_DIR = path.resolve(__dirname, 'dist/lib');
+var APP_DIR = path.resolve(__dirname, 'src/lib')
+
+var config = {
+    entry: APP_DIR + '/gear.js',
     output: {
-        path: path.resolve(__dirname, 'dist/lib'),
+        path: BUILD_DIR,
         filename: 'bundle.js'
     },
     module: {
         loaders: [
-            {test: /\.js$/, exclude:/node_modules/, loader: 'babel-loader'}
+            {test: /\.js$/, exclude:/node_module/, loader: 'babel-loader'}
         ]
     }
 }
+
+module.exports = config;
