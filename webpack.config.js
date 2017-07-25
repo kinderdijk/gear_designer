@@ -7,7 +7,9 @@ var config = {
     entry: APP_DIR + '/gear.js',
     output: {
         path: BUILD_DIR,
-        filename: 'bundle.js'
+        filename: 'bundle.js',
+        libraryTarget: 'var',
+        library: 'drawLine'
     },
     module: {
         loaders: [
