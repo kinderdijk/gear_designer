@@ -1,10 +1,14 @@
 <html>
     <head>
+        <script>
+            var pointArray = [];
+        </script>
     </head>
     <body>
         <h1>This is the great page.</h1>
-        <canvas id="gearChart"></canvas>
-        <script type="text/javascript" src="draw.js"></script>
+        <canvas id="gearChart" height=1000 width=1000></canvas>
+        <button onclick="clearAllPoints()">Clear All</button>
+        <script type="text/javascript" src="drawSpline.js"></script>
         <script type="text/javascript" src="gear.js"></script>
         <script type="text/javascript" src="bezier.js"></script>
     </body>

@@ -50,11 +50,20 @@ var drawPoints = function(points, ctx, offset) {
   }.bind(this));
 };
 
-var drawCircle = function(p, r, ctx, offset) {
+//var drawCircle = function(p, r, ctx, offset) {
+//  offset = offset || { x:0, y:0 };
+//  var ox = offset.x;
+//  var oy = offset.y;
+//  ctx.beginPath();
+//  ctx.arc(p.x + ox, p.y + oy, r, 0, 2*Math.PI);
+//  ctx.stroke();
+//};
+
+var drawCircle = function(event, r, ctx, offset) {
   offset = offset || { x:0, y:0 };
   var ox = offset.x;
   var oy = offset.y;
   ctx.beginPath();
-  ctx.arc(p.x + ox, p.y + oy, r, 0, 2*Math.PI);
+  ctx.arc(event.pageX + ox, event.pageY + oy, r, 0, 2*Math.PI);
   ctx.stroke();
 };
