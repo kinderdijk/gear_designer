@@ -113,83 +113,37 @@ function drawControlLine(ctx,x,y,px,py){
     drawPoint(ctx,px,py,1.5,"#000000");
 //    ctx.restore();
 }
-function drawSpline(ctx,pts,t,closed){
-//    showDetails=document.getElementById('details').checked;
-    showDetails = true;
+function drawSpline(ctx,pts,t,closed, detail){
     var newPoints = pts.slice();
-    ctx.lineWidth=4;
+    ctx.lineWidth=2;
 //    ctx.save();
     var cp=[];   // array of control points, as x0,y0,x1,y1,...
     var n=newPoints.length;
 
-    if(closed){
-        //   Append and prepend knots and control points to close the curve
-        newPoints.push(newPoints[0],newPoints[1],newPoints[2],newPoints[3]);
-        newPoints.unshift(newPoints[n-1]);
-        newPoints.unshift(newPoints[n-1]);
-        for(var i=0;i<n;i+=2){
-            cp=cp.concat(getControlPoints(newPoints[i],newPoints[i+1],newPoints[i+2],newPoints[i+3],newPoints[i+4],newPoints[i+5],t));
-        }
-        cp=cp.concat(cp[0],cp[1]);
-        for(var i=2;i<n+2;i+=2){
-            var color=HSVtoRGB(Math.floor(240*(i-2)/(n-2)),0.8,0.8);
-            if(!showDetails){color="#555555"}
-            ctx.strokeStyle=hexToCanvasColor(color,0.75);
-            ctx.beginPath();
-            ctx.moveTo(newPoints[i],newPoints[i+1]);
-            ctx.bezierCurveTo(cp[2*i-2],cp[2*i-1],cp[2*i],cp[2*i+1],newPoints[i+2],newPoints[i+3]);
-            ctx.stroke();
-            ctx.closePath();
-            if(showDetails){
-               drawControlLine(ctx,newPoints[i],newPoints[i+1],cp[2*i-2],cp[2*i-1]);
-               drawControlLine(ctx,newPoints[i+2],newPoints[i+3],cp[2*i],cp[2*i+1]);
-            }
-        }
-    }else{
-        // Draw an open curve, not connected at the ends
-        for(var i=0;i<n-4;i+=2){
-            cp=cp.concat(getControlPoints(pts[i],pts[i+1],pts[i+2],pts[i+3],pts[i+4],pts[i+5],t));
-        }
-        for(var i=2;i<pts.length-5;i+=2){
-            var color=HSVtoRGB(Math.floor(240*(i-2)/(n-2)),0.8,0.8);
-            if(!showDetails){color="#555555"}
-            ctx.strokeStyle=hexToCanvasColor(color,0.75);
-            ctx.beginPath();
-            ctx.moveTo(pts[i],pts[i+1]);
-            ctx.bezierCurveTo(cp[2*i-2],cp[2*i-1],cp[2*i],cp[2*i+1],pts[i+2],pts[i+3]);
-            ctx.stroke();
-            ctx.closePath();
-            if(showDetails){
-                drawControlLine(ctx,pts[i],pts[i+1],cp[2*i-2],cp[2*i-1]);
-                drawControlLine(ctx,pts[i+2],pts[i+3],cp[2*i],cp[2*i+1]);
-            }
-        }
-        //  For open curves the first and last arcs are simple quadratics.
-        var color=HSVtoRGB(40,0.4,0.4);  // brown
-        if(!showDetails){color="#555555"}
+    //   Append and prepend knots and control points to close the curve
+    newPoints.push(newPoints[0],newPoints[1],newPoints[2],newPoints[3]);
+    newPoints.unshift(newPoints[n-1]);
+    newPoints.unshift(newPoints[n-1]);
+    for(var i=0;i<n;i+=2){
+        cp=cp.concat(getControlPoints(newPoints[i],newPoints[i+1],newPoints[i+2],newPoints[i+3],newPoints[i+4],newPoints[i+5],t));
+    }
+    cp=cp.concat(cp[0],cp[1]);
+    for(var i=2;i<n+2;i+=2){
+        var color=HSVtoRGB(Math.floor(240*(i-2)/(n-2)),0.8,0.8);
+        if(!detail){color="#555555"}
         ctx.strokeStyle=hexToCanvasColor(color,0.75);
         ctx.beginPath();
-        ctx.moveTo(pts[0],pts[1]);
-        ctx.quadraticCurveTo(cp[0],cp[1],pts[2],pts[3]);
+        ctx.moveTo(newPoints[i],newPoints[i+1]);
+        ctx.bezierCurveTo(cp[2*i-2],cp[2*i-1],cp[2*i],cp[2*i+1],newPoints[i+2],newPoints[i+3]);
         ctx.stroke();
         ctx.closePath();
-
-        var color=HSVtoRGB(240,0.8,0.8); // indigo
-        if(!showDetails){color="#555555"}
-        ctx.strokeStyle=hexToCanvasColor(color,0.75);
-        ctx.beginPath();
-        ctx.moveTo(pts[n-2],pts[n-1]);
-        ctx.quadraticCurveTo(cp[2*n-10],cp[2*n-9],pts[n-4],pts[n-3]);
-        ctx.stroke();
-        ctx.closePath();
-        if(showDetails){
-            drawControlLine(ctx,pts[2],pts[3],cp[0],cp[1]);
-            drawControlLine(ctx,pts[n-4],pts[n-3],cp[2*n-10],cp[2*n-9]);
+        if(detail){
+           drawControlLine(ctx,newPoints[i],newPoints[i+1],cp[2*i-2],cp[2*i-1]);
+           drawControlLine(ctx,newPoints[i+2],newPoints[i+3],cp[2*i],cp[2*i+1]);
         }
     }
-//    ctx.restore();
 
-    if(showDetails){   //   Draw the knot points.
+    if(detail){   //   Draw the knot points.
         for(var i=0;i<n;i+=2){
             drawPoint(ctx,newPoints[i],newPoints[i+1],1,"#ffff00");
         }
