@@ -44,14 +44,25 @@ canvas.addEventListener("mouseup", function(event) {
     if(!moving) {
         var coords = relMouseCoordinates(canvas, event);
 
-        pointArray.push(coords.x);
-        pointArray.push(coords.y);
-
         context.clearRect(0, 0, canvas.width, canvas.height);
+        if(defineAxisToggle) {
+            axisPoint1 = [];
+
+            axisPoint1.push(coords.x);
+            axisPoint1.push(coords.y);
+        } else {
+            pointArray.push(coords.x);
+            pointArray.push(coords.y);
+        }
+
         if(pointArray.length > 2) {
             drawSpline(context, pointArray, .5, true, detail);
         } else {
             drawPoint(context,pointArray[0],pointArray[1],1,"#ffff00");
+        }
+
+        if(axisPoint1.length === 2) {
+            drawPoint(context,axisPoint1[0],axisPoint1[1],5,"#ffff00");
         }
     } else {
         moving = false;
@@ -87,15 +98,22 @@ function clearAllPoints() {
 };
 
 function toggleDetail() {
-    console.log("Detail Before: " + detail);
     detail = !detail;
-    console.log("Detail After: " + detail);
     context.clearRect(0,0,canvas.width, canvas.height);
     drawSpline(context, pointArray, .5, true, detail);
+
+    if(axisPoint1.length === 2) {
+        drawPoint(context,axisPoint1[0],axisPoint1[1],5,"#ffff00");
+    }
 }
 
 function defineAxis() {
     defineAxisToggle = !defineAxisToggle;
 
-
+    var axisButton = document.getElementById("defineAxis");
+    if(defineAxisToggle) {
+        axisButton.style.backgroundColor = '#aaaaaa';
+    } else {
+        axisButton.style.backgroundColor = '#ffffff';
+    }
 }
