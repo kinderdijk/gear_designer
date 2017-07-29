@@ -4,7 +4,6 @@
   "description": "",
   "main": "gear.js",
   "scripts": {
-    "prestart": "webpack",
     "start": "babel-node buildSources/srcServer.js",
     "test": "mocha --reporter progress buildSources/testSetup.js \"src/**/*.test.js\"",
     "trans:js": "babel src/lib --out-dir dist/lib"

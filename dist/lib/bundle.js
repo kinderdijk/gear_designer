@@ -85,7 +85,7 @@ canvas.addEventListener("mousemove", function (event) {
 
         context.clearRect(0, 0, canvas.width, canvas.height);
         if (pointArray.length > 2) {
-            drawSpline(context, pointArray, .5, true, detail);
+            drawFullCurve(context, pointArray);
         }
         for (i = 0; i < pointArray.length; i += 2) {
             drawPoint(context, pointArray[0], pointArray[1], 1, "#ffff00");
@@ -129,7 +129,7 @@ canvas.addEventListener("mouseup", function (event) {
         }
 
         if (pointArray.length > 2) {
-            drawSpline(context, pointArray, .5, true, detail);
+            drawFullCurve(context, pointArray);
         } else {
             drawPoint(context, pointArray[0], pointArray[1], 1, "#ffff00");
         }
@@ -174,6 +174,10 @@ function toggleDetail() {
     detail = !detail;
     context.clearRect(0, 0, canvas.width, canvas.height);
     drawSpline(context, pointArray, .5, true, detail);
+
+    if (axisPoint1.length === 2) {
+        drawPoint(context, axisPoint1[0], axisPoint1[1], 5, "#ffff00");
+    }
 }
 
 function defineAxis() {

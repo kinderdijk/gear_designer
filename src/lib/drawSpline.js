@@ -129,9 +129,7 @@ function drawSpline(ctx,pts,t,closed, detail){
     }
     cp=cp.concat(cp[0],cp[1]);
     for(var i=2;i<n+2;i+=2){
-        var color=HSVtoRGB(Math.floor(240*(i-2)/(n-2)),0.8,0.8);
-        if(!detail){color="#555555"}
-        ctx.strokeStyle=hexToCanvasColor(color,0.75);
+        ctx.strokeStyle="#555555";
         ctx.beginPath();
         ctx.moveTo(newPoints[i],newPoints[i+1]);
         ctx.bezierCurveTo(cp[2*i-2],cp[2*i-1],cp[2*i],cp[2*i+1],newPoints[i+2],newPoints[i+3]);
