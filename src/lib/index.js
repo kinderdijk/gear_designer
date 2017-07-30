@@ -6,3 +6,4 @@ var axisPoint1 = [];
 var axisPoint2 = [];
 
 var curves = [];
+var radiusArray = [];

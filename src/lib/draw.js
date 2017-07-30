@@ -69,6 +69,49 @@ function drawFullCurve(context, points) {
     }
 }
 
+function calculateGear2Axis() {
+    var d1 = axisPoint1[0];
+    var rads = Math.PI/180;
+
+    var radiusDistanceArray = [];
+
+    for(i=0+180; i<360+180; i++) {
+        var xPoint = axisPoint1[0] + Math.floor(d1*Math.cos(i*rads));
+        var yPoint = axisPoint1[1] + Math.floor(d1*Math.sin(i*rads));
+
+        var line = { p1: { x: xPoint, y: yPoint }, p2: { x: axisPoint1[0], y: axisPoint1[1] } };
+
+        curves.forEach(function(curve) {
+            curve.intersects(line).forEach(function(t) {
+                radiusArray.concat(Math.floor(curve.get(t).x), Math.floor(curve.get(t).y));
+                radiusDistanceArray.push(Math.sqrt(Math.pow((axisPoint1[0]-curve.get(t).x),2) + Math.pow((axisPoint1[1]-curve.get(t).y),2)));
+            });
+        });
+    }
+
+    var averageRadius = radiusDistanceArray.reduce(function(sum, value) {
+         return sum + value;
+    });
+
+    averageRadius = averageRadius/360;
+
+    var ratio = 2;
+    axisPoint2 = [];
+    axisPoint2.push(axisPoint1[0]-(averageRadius + ratio*averageRadius));
+    axisPoint2.push(axisPoint1[1]);
+    drawPoint(context,axisPoint2[0],axisPoint2[1],5,"#ffff00");
+
+    var radiDistance = Math.sqrt(Math.pow(axisPoint1[0]-axisPoint2[0],2) + Math.pow(axisPoint1[1]-axisPoint2[1],2));
+    for(i=0; i<360; i++) {
+        var currentRadius = radiDistance-radiusDistanceArray[360-i];
+
+        var xPoint = axisPoint2[0] + Math.floor(currentRadius*Math.cos(i*rads));
+        var yPoint = axisPoint2[1] + Math.floor(currentRadius*Math.sin(i*rads));
+
+        drawPoint(context,xPoint,yPoint,1,"#ffff00");
+    }
+}
+
 var drawLine = function(p1, p2, ctx, offset) {
   offset = offset || { x:0, y:0 };
   var ox = offset.x;
